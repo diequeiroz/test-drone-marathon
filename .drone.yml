@@ -2,7 +2,7 @@ deploy:
   marathon:
     when:
       branch: $$DEFAULT_BRANCH
-    image: quintoandar/aws-ecr-login
+    image: quintoandar/drone-marathon
     server: http://master.mesos:8080
     id: nginx
     container:
