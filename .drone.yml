@@ -12,7 +12,7 @@ deploy:
           image: nginx:1.7.7
           network: BRIDGE
           portMappings:
-            hostPort: 0
+          - hostPort: 0
             containerPort: 80
             servicePort: 10003
           forcePullImage: true
@@ -20,7 +20,7 @@ deploy:
       cpus: 0.1
       mem: 65
       healthChecks:
-        protocol: HTTP
+      - protocol: HTTP
         path: "/"
         portIndex: 0
         timeoutSeconds: 10
