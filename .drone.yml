@@ -28,4 +28,4 @@ deploy:
       maxConsecutiveFailures: 10
     labels:
       HAPROXY_GROUP: internal,external
-      HAPROXY_0_VHOST: nginx.blackops.quintoandar.com.br
+      HAPROXY_0_VHOST: $$DEFAULT_BRANCH-nginx.blackops.quintoandar.com.br
