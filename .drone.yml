@@ -3,35 +3,30 @@ deploy:
     when:
       branch: $$DEFAULT_BRANCH
     image: quintoandar/drone-marathon
-    config: '
-      {
-        "id": "nginx",
-        "container": {
-          "type": "DOCKER",
-          "docker": {
-            "image": "nginx:1.7.7",
-            "network": "BRIDGE",
-            "portMappings": [
-              { "hostPort": 0, "containerPort": 80, "servicePort": 10003 }
-            ],
-            "forcePullImage":true
-          }
-        },
-        "instances": 1,
-        "cpus": 0.1,
-        "mem": 65,
-        "healthChecks": [{
-            "protocol": "HTTP",
-            "path": "/",
-            "portIndex": 0,
-            "timeoutSeconds": 10,
-            "gracePeriodSeconds": 10,
-            "intervalSeconds": 2,
-            "maxConsecutiveFailures": 10
-        }],
-        "labels":{
-          "HAPROXY_GROUP":"internal,external",
-          "HAPROXY_0_VHOST": "$$DEFAULT_BRANCH.nginx.blackops.quintoandar.com.br"
-        }
-      }
-    '
+    server: http://master.mesos:8080
+    app_config: 
+      id: nginx
+      container:
+        type: DOCKER
+        docker:
+          image: nginx:1.7.7
+          network: BRIDGE
+          portMappings:
+            hostPort: 0
+            containerPort: 80
+            servicePort: 10003
+          forcePullImage: true
+      instances: 1
+      cpus: 0.1
+      mem: 65
+      healthChecks:
+        protocol: HTTP
+        path: "/"
+        portIndex: 0
+        timeoutSeconds: 10
+        gracePeriodSeconds: 10
+        intervalSeconds: 2
+        maxConsecutiveFailures: 10
+      labels:
+        HAPROXY_GROUP: internal,external
+        HAPROXY_0_VHOST: $$DEFAULT_BRANCHnginx.blackops.quintoandar.com.br
